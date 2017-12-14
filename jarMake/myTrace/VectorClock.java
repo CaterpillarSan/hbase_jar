@@ -100,10 +100,16 @@ public class VectorClock implements Serializable {
     /******************************************************************/
     public void printArray(String arrayName){
         System.out.print(arrayName+"[ ");
-        vc.forEach(node -> {
-            if(node == null)    System.out.print("Null ");
-            else                System.out.print(Integer.toHexString(node)+" ");
-        });
+        // java8
+        // vc.forEach(node -> {
+        //     if(node == null)    System.out.print("Null ");
+        //     else                System.out.print(Integer.toHexString(node)+" ");
+        // });
+
+        for(Integer num : vc) {
+            if(num==null)       System.out.print("Null ");
+            else                System.out.print(Integer.toHexString(num)+" ");
+        }
         System.out.print("]");
     }
 

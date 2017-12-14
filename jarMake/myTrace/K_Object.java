@@ -13,4 +13,10 @@ public class K_Object extends java.lang.Object implements K_LockInterface {
         return FastTrack_LS;
     }
 
+    public void myWait() throws Exception {
+        FastTrack_LS.FTrelease();
+        wait();
+        FastTrack_LS.FTacquire();
+    }
+
 }

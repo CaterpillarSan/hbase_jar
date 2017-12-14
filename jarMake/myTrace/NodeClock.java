@@ -68,28 +68,30 @@ public class NodeClock implements Serializable {
     }
 
     /******************************************************************/
-    public void max(NodeClock nc2){
-        nc2.nc.forEach((key,value) -> {
-            if(nc.containsKey(key)) nc.get(key).max(value);
-            else nc.put(key,new VectorClock(value));
-        });
-        // synchronized(ThreadState.lock){ 
-        // printArray("*****");
-        // System.out.print("*****");
-        // }
-
-        // for(Long key : nc2.keySet()){
-        //     if(nc.containsKey(key)) nc.get(key).max(nc2.get(key));
-        //     else nc.put(key,new VectorClock(nc2,get(key)));
-        // }
+    public void max(NodeClock node){
+        // java8
+        // nc2.nc.forEach((key,value) -> {
+        //     if(nc.containsKey(key)) nc.get(key).max(value);
+        //     else nc.put(key,new VectorClock(value));
+        // });
+        
+        // java6
+        for(Long key : node.nc.keySet()){
+            VectorClock vc = node.nc.get(key);
+            if(nc.containsKey(key)) nc.get(key).max(vc);
+            else nc.put(key,new VectorClock(vc));
+        }
     }
 
     /******************************************************************/
     public void printArray(String str){
         System.out.print(str+"<");
-        nc.forEach((key,value) -> {
-            value.printArray(" ");
-        });
+        // nc.forEach((key,value) -> {
+        //     value.printArray(" ");
+        // });
+        for (VectorClock vc : nc.values()){
+            vc.printArray(" ");
+        }
         System.out.print(" >");
     }
 
